@@ -1,7 +1,3 @@
 <resources>
-    <string name="app_name">MemoMap</string>
-    <string name="btn_text">memo</string>
-    <string name="memo_text">memo</string>
-    <string name="cancel_text">キャンセル</string>
-    <string name="save_text">保存</string>
+    <string name="app_name">Rundom</string>
 </resources>

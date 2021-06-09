@@ -46,12 +46,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // Realmのインスタンスを取得
         realm = Realm.getDefaultInstance()
-        binding.memoBtn.setOnClickListener {
-            val intent = Intent(this, AddActivity::class.java)
-            intent.putExtra("lat", lastLocation.latitude)
-            intent.putExtra("lng", lastLocation.longitude)
-            startActivity(intent)
-        }
     }
 
     override fun onStart() {
@@ -61,15 +55,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
@@ -186,19 +171,5 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun putsMarkers() {
         mMap.clear()
-        val realmResults = realm.where(Memo::class.java).findAll()
-        for (memo: Memo in realmResults) {
-            val latLng = LatLng(memo.lat, memo.lng)
-            val marker = MarkerOptions()
-                .position(latLng)    // 場所
-                .title(DateFormat.format("yyyy/MM/dd kk:mm", memo.dateTime).toString())
-                .snippet(memo.memo)
-                .draggable(false)    // マーカーはドラッグ不可能
-
-            val descriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
-            marker.icon(descriptor)
-
-            mMap.addMarker(marker)
-        }
     }
 }
